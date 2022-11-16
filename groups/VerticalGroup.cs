@@ -32,7 +32,7 @@ namespace QuickMenu.groups {
 			}
 
 			if (Bounds.Width > 0) width = Bounds.Width;
-			if (Bounds.Height > 0) height = Bounds.Height;
+			if (Bounds.Height > 0) height = Bounds.Height; //TODO this line probably wrong
 			Point origin = Bounds.Location;
 
 			foreach (var e in Elements) {

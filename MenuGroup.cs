@@ -24,7 +24,7 @@ namespace QuickMenu {
 			get; set;
 		}
 
-		public virtual Rectangle Bounds {
+		public virtual Rectangle Bounds { //TODO change this so its readonly, use BlankSpace elements instead for sizing
 			get; set;
 		} = Rectangle.Empty;
 
