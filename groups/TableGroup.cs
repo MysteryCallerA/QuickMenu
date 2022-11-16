@@ -75,6 +75,8 @@ namespace QuickMenu.groups {
 			foreach (var e in elements) {
 				e.ThirdUpdate(top, c, m);
 			}
+
+			Size = new Point(ColSizes.Sum(), RowSizes.Sum());
 		}
 
 		private void SolveCellSizeNormally(int col, int row) {

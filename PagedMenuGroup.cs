@@ -47,7 +47,15 @@ namespace QuickMenu {
 
 		public override Rectangle Bounds {
 			get { return CurrentPage.Bounds; }
-			set { CurrentPage.Bounds = value; }
+		}
+
+		public override Point Position {
+			get { return CurrentPage.Position; }
+			set { CurrentPage.Position = value; }
+		}
+
+		public override Point Size {
+			get { return CurrentPage.Size; }
 		}
 
 		public override void SwitchPage(int p) {

@@ -24,9 +24,17 @@ namespace QuickMenu {
 			get; set;
 		}
 
-		public virtual Rectangle Bounds { //TODO change this so its readonly, use BlankSpace elements instead for sizing
+		public virtual Point Position {
 			get; set;
-		} = Rectangle.Empty;
+		}
+
+		public virtual Point Size {
+			get; protected set;
+		}
+
+		public virtual Rectangle Bounds {
+			get { return new Rectangle(Position, Size); }
+		}
 
 		public void Update(MouseInputManager m, Camera c) {
 			Update(m, c, this);

@@ -23,20 +23,16 @@ namespace QuickMenu.groups {
 		}
 
 		protected internal override void Update(MouseInputManager m, Camera c, MenuGroup top) {
-			int width = 0, height = 0;
+			int width = 0;
 			foreach (var e in Elements) {
 				e.FirstUpdate(top);
 				var size = e.GetSize();
 				if (size.X > width) width = size.X;
-				if (size.Y > height) height = size.Y;
 			}
 
-			if (Bounds.Width > 0) width = Bounds.Width;
-			if (Bounds.Height > 0) height = Bounds.Height; //TODO this line probably wrong
-			Point origin = Bounds.Location;
-
+			Point origin = Position;
 			foreach (var e in Elements) {
-				e.SecondUpdate(top, origin, new Point(width, height));
+				e.SecondUpdate(top, origin, new Point(width, e.GetSize().Y));
 				origin.Y += e.GetSize().Y;
 			}
 			foreach (var e in Elements) {
