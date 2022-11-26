@@ -12,6 +12,8 @@ using Utils.text;
 namespace QuickMenu {
 	public abstract class MenuGroup {
 
+		public Color BackColor = Color.Transparent;
+
 		public MenuGroup(Text t) {
 			Text = t;
 		}
@@ -46,10 +48,17 @@ namespace QuickMenu {
 		protected internal abstract void Update(MouseInputManager m, Camera c, MenuGroup top);
 
 		public virtual void Draw(Renderer r, Camera c) {
+			DrawBack(r, c);
+
 			var e = GetElements();
 			foreach (var element in e) {
 				element.Draw(this, r, c);
 			}
+		}
+
+		protected virtual void DrawBack(Renderer r, Camera c) {
+			if (BackColor == Color.Transparent) return;
+			r.DrawRectStatic(Bounds, BackColor, c, Camera.Space.Pixel);
 		}
 
 		protected internal abstract List<MenuElement> GetElements();
