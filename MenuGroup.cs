@@ -14,16 +14,12 @@ namespace QuickMenu {
 
 		public Color BackColor = Color.Transparent;
 
-		public MenuGroup(Text t) {
-			Text = t;
-		}
-
-		/// <summary> If you use this constructor, remember to set Text. </summary>
-		protected MenuGroup() {
+		public MenuGroup(Font f) {
+			Text = new Text(f);
 		}
 
 		public virtual Text Text {
-			get; set;
+			get; private set;
 		}
 
 		public virtual Point Position {
@@ -39,6 +35,7 @@ namespace QuickMenu {
 		}
 
 		public void Update(MouseInputManager m, Camera c) {
+			Text.Scale = c.GameScale;
 			Update(m, c, this);
 		}
 

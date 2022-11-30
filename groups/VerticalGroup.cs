@@ -14,7 +14,7 @@ namespace QuickMenu.groups {
 
 		public List<MenuElement> Elements = new List<MenuElement>();
 
-		public VerticalGroup(Text t) : base(t) {
+		public VerticalGroup(Font f) : base(f) {
 
 		}
 

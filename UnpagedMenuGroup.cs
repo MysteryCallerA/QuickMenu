@@ -13,7 +13,7 @@ namespace QuickMenu {
 	/// </summary>
 	public abstract class UnpagedMenuGroup:MenuGroup {
 
-		public UnpagedMenuGroup(Text t) : base(t) {
+		public UnpagedMenuGroup(Font f) : base(f) {
 		}
 	}
 }

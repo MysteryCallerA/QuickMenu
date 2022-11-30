@@ -14,7 +14,7 @@ namespace QuickMenu.groups {
 
 		public List<MenuElement> Elements = new List<MenuElement>();
 
-		public BasicGroup(Text t):base(t) {
+		public BasicGroup(Font f):base(f) {
 		}
 
 		protected internal override void Update(MouseInputManager m, Camera c, MenuGroup top) {

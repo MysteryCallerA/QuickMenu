@@ -14,10 +14,9 @@ namespace QuickMenu {
 
 		private int? WillSwitchPageTo;
 
-		public PagedMenuGroup(Text t, UnpagedMenuGroup top, int topid) {
+		public PagedMenuGroup(Font f, UnpagedMenuGroup top, int topid):base(f) {
 			Pages.Add(topid, top);
 			CurrentPageId = TopPageId = topid;
-			Text = t;
 		}
 
 		public MenuGroup CurrentPage {
@@ -42,7 +41,6 @@ namespace QuickMenu {
 
 		public override Text Text {
 			get { return CurrentPage.Text; }
-			set { CurrentPage.Text = value; }
 		}
 
 		public override Rectangle Bounds {

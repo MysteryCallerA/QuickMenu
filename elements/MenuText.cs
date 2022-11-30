@@ -37,7 +37,10 @@ namespace QuickMenu.elements
 
 		protected internal override void FirstUpdate(MenuGroup g) {
 			if (ContentChanged) {
+				var old = g.Text.Scale;
+				g.Text.Scale = 1;
 				ContentSize = g.Text.GetSize(Content);
+				g.Text.Scale = old;
 			}
 		}
 

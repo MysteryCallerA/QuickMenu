@@ -23,7 +23,7 @@ namespace QuickMenu.groups {
 		private List<int> ColSizes = new List<int>();
 		private List<int> RowSizes = new List<int>();
 
-		public TableGroup(Text t) : base(t) {
+		public TableGroup(Font f) : base(f) {
 
 		}
 
@@ -50,6 +50,7 @@ namespace QuickMenu.groups {
 				e.FirstUpdate(top);
 			}
 			for (int col = 0; col < Table.Count; col++) {
+				if (Table[col].Count == 0) ColSizes.Add(0);
 				for (int row = 0; row < Table[col].Count; row++) {
 					if (Table[col][row] == null) {
 						if (col >= ColSizes.Count) ColSizes.Add(0);
