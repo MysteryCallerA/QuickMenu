@@ -51,5 +51,17 @@ namespace QuickMenu
 			a.Invoke(this);
 		}
 
+		public int Margins {
+			set { MarginLeft = MarginRight = MarginTop = MarginBot = value; }
+		}
+
+		public int HMargin {
+			set { MarginLeft = MarginRight = value; }
+		}
+
+		public int VMargin {
+			set { MarginTop = MarginBot = value; }
+		}
+
 	}
 }
