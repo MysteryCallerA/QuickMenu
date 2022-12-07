@@ -61,7 +61,9 @@ namespace QuickMenu {
 
 		protected virtual void DrawBack(Renderer r, Camera c) {
 			if (BackColor == Color.Transparent) return;
-			r.DrawRectStatic(Bounds, BackColor, c, Camera.Space.Pixel);
+			var dest = Bounds;
+			dest.Location += GetAnchorOffset();
+			r.DrawRectStatic(dest, BackColor, c, Camera.Space.Pixel);
 		}
 
 		protected internal abstract List<MenuElement> GetElements();
