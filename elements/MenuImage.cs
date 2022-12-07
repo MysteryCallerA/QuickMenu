@@ -60,7 +60,7 @@ namespace QuickMenu.elements
 				height = bestfit.Y;
 			}
 
-			DrawRect = new Rectangle(origin.X, origin.Y, width, height);
+			DrawRect = new Rectangle(origin.X + MarginLeft, origin.Y + MarginTop, width, height);
 		}
 
 		protected internal override void Draw(MenuGroup g, Renderer r, Camera c) {
