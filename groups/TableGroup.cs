@@ -65,7 +65,10 @@ namespace QuickMenu.groups {
 				SolveCellSizeWithSpan(cell.Key.X, cell.Key.Y, cell.Value);
 			}
 
-			Point origin = Bounds.Location;
+			Size = new Point(ColSizes.Sum(), RowSizes.Sum());
+			Point origin = Position;
+			origin += GetAnchorOffset();
+
 			for (int col = 0; col < Table.Count; col++) {
 				for (int row = 0; row < Table[col].Count; row++) {
 					if (Table[col][row] != null) Table[col][row].SecondUpdate(top, origin, new Point(ColSizes[col], RowSizes[row]));
@@ -76,8 +79,6 @@ namespace QuickMenu.groups {
 			foreach (var e in elements) {
 				e.ThirdUpdate(top, c, m);
 			}
-
-			Size = new Point(ColSizes.Sum(), RowSizes.Sum());
 		}
 
 		private void SolveCellSizeNormally(int col, int row) {

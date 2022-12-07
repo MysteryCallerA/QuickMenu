@@ -30,6 +30,12 @@ namespace QuickMenu {
 			get; protected set;
 		}
 
+		public enum AnchorPositions {
+			TopLeft, TopRight, BotLeft, BotRight
+		}
+
+		public AnchorPositions AnchorPosition = AnchorPositions.TopLeft;
+
 		public virtual Rectangle Bounds {
 			get { return new Rectangle(Position, Size); }
 		}
@@ -86,6 +92,16 @@ namespace QuickMenu {
 			foreach (var e in elements) {
 				e.Apply(a);
 			}
+		}
+
+		/// <summary> Returns a point that can be added to Position to get the true draw location based on AnchorPosition.
+		/// <br></br> Size needs to be set accurately for this to work.</summary>
+		protected Point GetAnchorOffset() {
+			if (AnchorPosition == AnchorPositions.TopLeft) return Point.Zero;
+			if (AnchorPosition == AnchorPositions.BotLeft) return new Point(0, -Size.Y);
+			if (AnchorPosition == AnchorPositions.TopRight) return new Point(-Size.X, 0);
+			if (AnchorPosition == AnchorPositions.BotRight) return new Point(-Size.X, -Size.Y);
+			return Point.Zero;
 		}
 	}
 }
