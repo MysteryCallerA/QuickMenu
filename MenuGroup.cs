@@ -31,7 +31,7 @@ namespace QuickMenu {
 		}
 
 		public enum AnchorPositions {
-			TopLeft, TopRight, BotLeft, BotRight
+			TopLeft, TopRight, BotLeft, BotRight, CenterTop
 		}
 
 		public AnchorPositions AnchorPosition = AnchorPositions.TopLeft;
@@ -103,6 +103,7 @@ namespace QuickMenu {
 			if (AnchorPosition == AnchorPositions.BotLeft) return new Point(0, -Size.Y);
 			if (AnchorPosition == AnchorPositions.TopRight) return new Point(-Size.X, 0);
 			if (AnchorPosition == AnchorPositions.BotRight) return new Point(-Size.X, -Size.Y);
+			if (AnchorPosition == AnchorPositions.CenterTop) return new Point(-Size.X / 2, 0);
 			return Point.Zero;
 		}
 	}
