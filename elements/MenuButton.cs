@@ -63,7 +63,9 @@ namespace QuickMenu.elements
 			}
 
 			var pointer = c.Project(Camera.Space.Screen, Camera.Space.Pixel, m.Position);
+			pointer -= c.GamePosition; //TODO add a better way to project statically
 			if (DrawRect.Contains(pointer)) {
+				m.Block();
 				if (m.LeftPress) {
 					State = ColorTable.State.Press;
 					Press(g);
