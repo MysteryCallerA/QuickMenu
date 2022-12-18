@@ -27,7 +27,9 @@ namespace QuickMenu {
 		}
 
 		public void Set(Field f, State s, Color c) {
-			Colors.Add(new Tuple<Field, State>(f, s), c);
+			var key = new Tuple<Field, State>(f, s);
+			if (Colors.ContainsKey(key)) Colors[key] = c;
+			else Colors.Add(key, c);
 		}
 
 		public Color Get(Field f, State s) {
