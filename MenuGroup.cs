@@ -32,7 +32,7 @@ namespace QuickMenu {
 		}
 
 		public virtual Point Size {
-			get; protected set;
+			get; protected set; //TODO only TableGroup currently implements this!
 		}
 
 		public BorderPosition OriginPosition = BorderPosition.TopLeft;
