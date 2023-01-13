@@ -41,7 +41,7 @@ namespace QuickMenu.groups {
 			return Contents;
 		}
 
-		protected internal override void Update(MouseInputManager m, Camera c, MenuGroup top) {
+		protected override void FirstUpdate(Camera c, MenuGroup top) {
 			ColSizes.Clear();
 			RowSizes.Clear();
 			var elements = GetElements();
@@ -66,8 +66,11 @@ namespace QuickMenu.groups {
 			}
 
 			Size = new Point(ColSizes.Sum(), RowSizes.Sum());
+		}
+
+		protected override void SecondUpdate(Camera c, MenuGroup top) {
 			Point origin = Position;
-			origin += GetAnchorOffset();
+			origin += GetOriginOffset();
 
 			for (int col = 0; col < Table.Count; col++) {
 				for (int row = 0; row < Table[col].Count; row++) {
@@ -76,6 +79,10 @@ namespace QuickMenu.groups {
 				}
 				origin = new Point(origin.X + ColSizes[col], Bounds.Location.Y);
 			}
+		}
+
+		protected override void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top) {
+			var elements = GetElements();
 			foreach (var e in elements) {
 				e.ThirdUpdate(top, c, m);
 			}
@@ -138,6 +145,12 @@ namespace QuickMenu.groups {
 			if (rowspan < 1) rowspan = 1;
 
 			Spans.Add(new Point(col, row), new Point(colspan, rowspan));
+		}
+
+		public void Clear() {
+			ContentsChanged = true;
+			Table.Clear();
+			Spans.Clear();
 		}
 	}
 }

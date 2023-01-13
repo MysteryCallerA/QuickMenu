@@ -17,21 +17,26 @@ namespace QuickMenu.groups {
 		public BasicGroup(Font f):base(f) {
 		}
 
-		protected internal override void Update(MouseInputManager m, Camera c, MenuGroup top) {
-			foreach (var e in Elements) {
-				e.FirstUpdate(top);
-			}
-			foreach (var e in Elements) {
-				e.SecondUpdate(top, Bounds.Location, Bounds.Size);
-			}
-			foreach (var e in Elements) {
-				e.ThirdUpdate(top, c, m);
-			}
-		}
-
 		protected internal override List<MenuElement> GetElements() {
 			return Elements;
 		}
 
+		protected override void FirstUpdate(Camera c, MenuGroup top) {
+			foreach (var e in Elements) {
+				e.FirstUpdate(top);
+			}
+		}
+
+		protected override void SecondUpdate(Camera c, MenuGroup top) {
+			foreach (var e in Elements) {
+				e.SecondUpdate(top, Bounds.Location, Bounds.Size);
+			}
+		}
+
+		protected override void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top) {
+			foreach (var e in Elements) {
+				e.ThirdUpdate(top, c, m);
+			}
+		}
 	}
 }

@@ -27,12 +27,19 @@ namespace QuickMenu {
 			Pages.Add(id, page);
 		}
 
-		protected internal override void Update(MouseInputManager m, Camera c, MenuGroup top) {
+		protected override void FirstUpdate(Camera c, MenuGroup top) {
 			if (WillSwitchPageTo.HasValue) {
 				CompletePageSwitch();
 			}
+			CurrentPage.FirstUpdate(c);
+		}
 
-			CurrentPage.Update(m, c, this);
+		protected override void SecondUpdate(Camera c, MenuGroup top) {
+			CurrentPage.SecondUpdate(c);
+		}
+
+		protected override void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top) {
+			CurrentPage.ThirdUpdate(m, c);
 		}
 
 		protected internal override List<MenuElement> GetElements() {

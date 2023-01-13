@@ -15,26 +15,35 @@ namespace QuickMenu.groups {
 		public List<MenuElement> Elements = new List<MenuElement>();
 
 		public VerticalGroup(Font f) : base(f) {
-
 		}
 
 		protected internal override List<MenuElement> GetElements() {
 			return Elements;
 		}
 
-		protected internal override void Update(MouseInputManager m, Camera c, MenuGroup top) {
+		public int Width {
+			get; private set;
+		}
+
+		protected override void FirstUpdate(Camera c, MenuGroup top) {
 			int width = 0;
 			foreach (var e in Elements) {
 				e.FirstUpdate(top);
 				var size = e.GetSize();
 				if (size.X > width) width = size.X;
 			}
+			Width = width;
+		}
 
+		protected override void SecondUpdate(Camera c, MenuGroup top) {
 			Point origin = Position;
 			foreach (var e in Elements) {
-				e.SecondUpdate(top, origin, new Point(width, e.GetSize().Y));
+				e.SecondUpdate(top, origin, new Point(Width, e.GetSize().Y));
 				origin.Y += e.GetSize().Y;
 			}
+		}
+
+		protected override void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top) {
 			foreach (var e in Elements) {
 				e.ThirdUpdate(top, c, m);
 			}
