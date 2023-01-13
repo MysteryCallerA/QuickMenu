@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toybox;
 
 namespace QuickMenu.constraints {
 	
-	public class AnchorConstraint:IMenuConstraint {
+	public class AnchorConstraint:MenuConstraint {
 
 		public MenuGroup Floater;
 
@@ -20,8 +21,9 @@ namespace QuickMenu.constraints {
 			Anchor = anchor;
 		}
 
-		public void Update() {
+		public override void Update(Camera c) {
 			Floater.Position = Anchor.Position + Anchor.GetBorderOffset(AnchorPosition) + AnchorOffset;
+			Floater.SecondUpdate(c);
 		}
 	
 	}

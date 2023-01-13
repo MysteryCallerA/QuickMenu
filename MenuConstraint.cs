@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Toybox;
 
 namespace QuickMenu {
 
-	public interface IMenuConstraint {
+	public abstract class MenuConstraint {
 
-		public void Update();
+		public abstract void Update(Camera c);
 	
 	}
 }

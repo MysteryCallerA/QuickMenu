@@ -130,7 +130,7 @@ namespace QuickMenu {
 		/// <summary> Returns a point that can be added to Position to get the true draw location based on OriginPosition.
 		/// <br></br> Size needs to be set accurately for this to work.</summary>
 		public Point GetOriginOffset() {
-			return GetBorderOffset(OriginPosition);
+			return GetBorderOffset(OriginPosition) * new Point(-1, -1);
 		}
 
 		/// <summary> Returns a point that can be added to Position to get the desired border point.
@@ -139,10 +139,10 @@ namespace QuickMenu {
 		/// <returns></returns>
 		public Point GetBorderOffset(BorderPosition b) {
 			if (b == BorderPosition.TopLeft) return Point.Zero;
-			if (b == BorderPosition.BotLeft) return new Point(0, -Size.Y);
-			if (b == BorderPosition.TopRight) return new Point(-Size.X, 0);
-			if (b == BorderPosition.BotRight) return new Point(-Size.X, -Size.Y);
-			if (b == BorderPosition.CenterTop) return new Point(-Size.X / 2, 0);
+			if (b == BorderPosition.BotLeft) return new Point(0, Size.Y);
+			if (b == BorderPosition.TopRight) return new Point(Size.X, 0);
+			if (b == BorderPosition.BotRight) return new Point(Size.X, Size.Y);
+			if (b == BorderPosition.CenterTop) return new Point(Size.X / 2, 0);
 			return Point.Zero;
 		}
 	}

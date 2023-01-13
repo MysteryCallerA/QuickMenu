@@ -8,7 +8,7 @@ using Toybox;
 
 namespace QuickMenu.constraints {
 	
-	public class CenterConstraint:IMenuConstraint {
+	public class CenterConstraint:MenuConstraint {
 
 		public Func<Rectangle> GetContainer;
 		public List<MenuGroup> Targets = new List<MenuGroup>();
@@ -20,8 +20,8 @@ namespace QuickMenu.constraints {
 			Targets.AddRange(targets);
 		}
 
-		public void Update() {
-			var currentcenter = FindTargetSize().Center;
+		public override void Update(Camera c) {
+			var currentcenter = FindTargetBounds().Center;
 			var container = GetContainer.Invoke();
 			
 			var targetcenter = container.Center;
@@ -36,14 +36,15 @@ namespace QuickMenu.constraints {
 
 			foreach (var target in Targets) {
 				target.Position += dif;
+				target.SecondUpdate(c);
 			}
 		}	
 
-		private Rectangle FindTargetSize() {
+		private Rectangle FindTargetBounds() {
 			var size = Targets[0].Bounds;
 
 			for (int i = 1; i < Targets.Count; i++) {
-				Rectangle.Union(size, Targets[i].Bounds);
+				size = Rectangle.Union(size, Targets[i].Bounds);
 			}
 			return size;
 		}
