@@ -32,7 +32,18 @@ namespace QuickMenu {
 		}
 
 		public virtual Point Size {
-			get; protected set; //TODO only TableGroup currently implements this!
+			get {
+				if (LockedSize.HasValue) return LockedSize.Value;
+				return AutoSize;
+			}
+		}
+
+		protected Point AutoSize; //TODO only TableGroup currently implements this!
+		public Point? LockedSize = null;
+
+		/// <summary> Used by constraints to adjust AutoSize. </summary>
+		public void ConstrainSize(Point newSize) {
+			AutoSize = newSize;
 		}
 
 		public BorderPosition OriginPosition = BorderPosition.TopLeft;

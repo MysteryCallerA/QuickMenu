@@ -65,7 +65,7 @@ namespace QuickMenu.groups {
 				SolveCellSizeWithSpan(cell.Key.X, cell.Key.Y, cell.Value);
 			}
 
-			Size = new Point(ColSizes.Sum(), RowSizes.Sum());
+			AutoSize = new Point(ColSizes.Sum(), RowSizes.Sum());
 		}
 
 		protected override void SecondUpdate(Camera c, MenuGroup top) {
