@@ -21,19 +21,19 @@ namespace QuickMenu.groups {
 			return Elements;
 		}
 
-		protected override void FirstUpdate(Camera c, MenuGroup top) {
+		protected internal override void FirstUpdate(Camera c, MenuGroup top) {
 			foreach (var e in Elements) {
 				e.FirstUpdate(top);
 			}
 		}
 
-		protected override void SecondUpdate(Camera c, MenuGroup top) {
+		protected internal override void SecondUpdate(Camera c, MenuGroup top) {
 			foreach (var e in Elements) {
 				e.SecondUpdate(top, Bounds.Location, Bounds.Size);
 			}
 		}
 
-		protected override void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top) {
+		protected internal override void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top) {
 			foreach (var e in Elements) {
 				e.ThirdUpdate(top, c, m);
 			}

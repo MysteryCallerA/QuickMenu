@@ -41,7 +41,7 @@ namespace QuickMenu.groups {
 			return Contents;
 		}
 
-		protected override void FirstUpdate(Camera c, MenuGroup top) {
+		protected internal override void FirstUpdate(Camera c, MenuGroup top) {
 			ColSizes.Clear();
 			RowSizes.Clear();
 			var elements = GetElements();
@@ -68,7 +68,7 @@ namespace QuickMenu.groups {
 			AutoSize = new Point(ColSizes.Sum(), RowSizes.Sum());
 		}
 
-		protected override void SecondUpdate(Camera c, MenuGroup top) {
+		protected internal override void SecondUpdate(Camera c, MenuGroup top) {
 			Point origin = Position;
 			origin += GetOriginOffset();
 
@@ -81,7 +81,7 @@ namespace QuickMenu.groups {
 			}
 		}
 
-		protected override void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top) {
+		protected internal override void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top) {
 			var elements = GetElements();
 			foreach (var e in elements) {
 				e.ThirdUpdate(top, c, m);

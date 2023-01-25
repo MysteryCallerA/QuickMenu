@@ -17,7 +17,9 @@ namespace QuickMenu {
 
 	public abstract class MenuGroup {
 
-		public Color BackColor = Color.Transparent;
+		public virtual Color BackColor {
+			get; set;
+		} = Color.Transparent;
 
 		public MenuGroup(Font f) {
 			Text = new Text(f);
@@ -42,11 +44,13 @@ namespace QuickMenu {
 		public Point? LockedSize = null;
 
 		/// <summary> Used by constraints to adjust AutoSize. </summary>
-		public void ConstrainSize(Point newSize) {
+		public virtual void ConstrainSize(Point newSize) {
 			AutoSize = newSize;
 		}
 
-		public BorderPosition OriginPosition = BorderPosition.TopLeft;
+		public virtual BorderPosition OriginPosition {
+			get; set;
+		} = BorderPosition.TopLeft;
 
 		public virtual Rectangle Bounds {
 			get { return new Rectangle(Position, Size); }
@@ -70,7 +74,7 @@ namespace QuickMenu {
 		/// <summary> Updates sizes to the minimum sizes. </summary>
 		/// <param name="top">The top-level group. Will either be this group or one that contains this group.
 		/// <br></br>Use top parameter when calling element update methods instead of 'this'.</param>
-		protected abstract void FirstUpdate(Camera c, MenuGroup top);
+		protected internal abstract void FirstUpdate(Camera c, MenuGroup top);
 
 		/// <summary> Updates positions and stretches elements if neccessary.  </summary>
 		public void SecondUpdate(Camera c) {
@@ -80,7 +84,7 @@ namespace QuickMenu {
 		/// <summary> Updates positions and stretches elements if neccessary.  </summary>
 		/// <param name="top">The top-level group. Will either be this group or one that contains this group.
 		/// <br></br>Use top parameter when calling element update methods instead of 'this'.</param>
-		protected abstract void SecondUpdate(Camera c, MenuGroup top);
+		protected internal abstract void SecondUpdate(Camera c, MenuGroup top);
 
 		/// <summary> Updates user input </summary>
 		public void ThirdUpdate(MouseInputManager m, Camera c) {
@@ -90,7 +94,7 @@ namespace QuickMenu {
 		/// <summary> Updates user input </summary>
 		/// <param name="top">The top-level group. Will either be this group or one that contains this group.
 		/// <br></br>Use top parameter when calling element update methods instead of 'this'.</param>
-		protected abstract void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top);
+		protected internal abstract void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top);
 
 		public virtual void Draw(Renderer r, Camera c) {
 			DrawBack(r, c);
@@ -140,7 +144,7 @@ namespace QuickMenu {
 
 		/// <summary> Returns a point that can be added to Position to get the true draw location based on OriginPosition.
 		/// <br></br> Size needs to be set accurately for this to work.</summary>
-		public Point GetOriginOffset() {
+		public virtual Point GetOriginOffset() {
 			return GetBorderOffset(OriginPosition) * new Point(-1, -1);
 		}
 
@@ -148,12 +152,16 @@ namespace QuickMenu {
 		/// <br></br> Size needs to be set accurately for this to work. </summary>
 		/// <param name="b"></param>
 		/// <returns></returns>
-		public Point GetBorderOffset(BorderPosition b) {
+		public virtual Point GetBorderOffset(BorderPosition b) {
+			return GetBorderOffset(b, Size);
+		}
+
+		public static Point GetBorderOffset(BorderPosition b, Point size) {
 			if (b == BorderPosition.TopLeft) return Point.Zero;
-			if (b == BorderPosition.BotLeft) return new Point(0, Size.Y);
-			if (b == BorderPosition.TopRight) return new Point(Size.X, 0);
-			if (b == BorderPosition.BotRight) return new Point(Size.X, Size.Y);
-			if (b == BorderPosition.CenterTop) return new Point(Size.X / 2, 0);
+			if (b == BorderPosition.BotLeft) return new Point(0, size.Y);
+			if (b == BorderPosition.TopRight) return new Point(size.X, 0);
+			if (b == BorderPosition.BotRight) return new Point(size.X, size.Y);
+			if (b == BorderPosition.CenterTop) return new Point(size.X / 2, 0);
 			return Point.Zero;
 		}
 	}

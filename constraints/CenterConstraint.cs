@@ -8,6 +8,9 @@ using Toybox;
 
 namespace QuickMenu.constraints {
 	
+	/// <summary>
+	/// Centers multiple MenuGroups within a container rectangle. Relative positions of MenuGroups are preserved.
+	/// </summary>
 	public class CenterConstraint:MenuConstraint {
 
 		public Func<Rectangle> GetContainer;

@@ -3,6 +3,9 @@ using Toybox;
 
 namespace QuickMenu.constraints {
 
+	/// <summary>
+	/// Adjusts the size of target MenuGroup's size to match each other.
+	/// </summary>
 	public class MatchConstraint:MenuConstraint {
 
 		public enum MatchType {
@@ -30,6 +33,7 @@ namespace QuickMenu.constraints {
 				var size = Targets[0].Size;
 				for (int i = 1; i < Targets.Length; i++) {
 					Targets[i].ConstrainSize(size);
+					Targets[i].SecondUpdate(c);
 				}
 				return;
 			}

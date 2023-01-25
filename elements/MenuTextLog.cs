@@ -1,42 +1,33 @@
 ﻿using Microsoft.Xna.Framework;
-using QuickMenu.groups;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Toybox;
-using Utils.text;
 
-namespace QuickMenu.elements
-{
-
-    public class MenuText:InnerElement {
+namespace QuickMenu.elements {
+	
+	public class MenuTextLog:InnerElement {
 
 		public Color Color = Color.White;
-
-		protected Point DrawPoint;
+		private List<string> Lines = new List<string>();
 		protected Point ContentSize;
-		private string _Content;
 
-		public MenuText():this("") {
-		}
-
-		public MenuText(string t) {
-			Content = t;
-		}
+		private Point DrawPoint;
 
 		public bool ContentChanged {
 			get; private set;
 		} = true;
 
 		public string Content {
-			get { return _Content; }
-			set { _Content = value; ContentChanged = true; }
-		}
+			get; private set;
+		} = "";
 
 		protected internal override void FirstUpdate(MenuGroup g) {
 			if (ContentChanged) {
+				Content = String.Join('\n', Lines);
+				
 				var old = g.Text.Scale;
 				g.Text.Scale = 1;
 				ContentSize = g.Text.GetSize(Content);
@@ -65,5 +56,11 @@ namespace QuickMenu.elements
 		public override Point GetSize() {
 			return base.GetSize() + ContentSize;
 		}
+
+		public void AddLine(string line) {
+			Lines.Add(line);
+			ContentChanged = true;
+		}
+
 	}
 }

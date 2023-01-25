@@ -7,16 +7,23 @@ using Utils.text;
 namespace QuickMenu {
 	public class PagedMenuGroup:MenuGroup {
 
-		private Dictionary<int, MenuGroup> Pages = new Dictionary<int, MenuGroup>();
-		private Stack<int> History = new Stack<int>();
+		protected Dictionary<int, MenuGroup> Pages = new Dictionary<int, MenuGroup>();
+		protected Stack<int> History = new Stack<int>();
 		public int TopPageId;
-		private int CurrentPageId;
+		public int CurrentPageId {
+			get; private set;
+		}
+		public bool RightClickBack = false;
 
 		private int? WillSwitchPageTo;
 
 		public PagedMenuGroup(Font f, UnpagedMenuGroup top, int topid):base(f) {
 			Pages.Add(topid, top);
 			CurrentPageId = TopPageId = topid;
+		}
+
+		protected PagedMenuGroup(Font f) : base(f) {
+
 		}
 
 		public MenuGroup CurrentPage {
@@ -27,19 +34,25 @@ namespace QuickMenu {
 			Pages.Add(id, page);
 		}
 
-		protected override void FirstUpdate(Camera c, MenuGroup top) {
+		protected internal override void FirstUpdate(Camera c, MenuGroup top) {
 			if (WillSwitchPageTo.HasValue) {
 				CompletePageSwitch();
 			}
-			CurrentPage.FirstUpdate(c);
+			CurrentPage.Text.Scale = c.GameScale;
+			CurrentPage.FirstUpdate(c, top);
 		}
 
-		protected override void SecondUpdate(Camera c, MenuGroup top) {
-			CurrentPage.SecondUpdate(c);
+		protected internal override void SecondUpdate(Camera c, MenuGroup top) {
+			CurrentPage.SecondUpdate(c, top);
 		}
 
-		protected override void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top) {
-			CurrentPage.ThirdUpdate(m, c);
+		protected internal override void ThirdUpdate(MouseInputManager m, Camera c, MenuGroup top) {
+			if (RightClickBack && m.RightPress) {
+				BackPage();
+				return;
+			}
+
+			CurrentPage.ThirdUpdate(m, c, top);
 		}
 
 		protected internal override List<MenuElement> GetElements() {
@@ -62,6 +75,29 @@ namespace QuickMenu {
 		public override Point Size {
 			get { return CurrentPage.Size; }
 		}
+
+		public override void ConstrainSize(Point newSize) {
+			CurrentPage.ConstrainSize(newSize);
+		}
+
+		public override BorderPosition OriginPosition {
+			get { return CurrentPage.OriginPosition; }
+			set { CurrentPage.OriginPosition = value; }
+		}
+
+		public override Point GetOriginOffset() {
+			return CurrentPage.GetOriginOffset();
+		}
+
+		public override Point GetBorderOffset(BorderPosition b) {
+			return CurrentPage.GetBorderOffset(b);
+		}
+
+		public override Color BackColor {
+			get { return CurrentPage.BackColor; }
+			set { CurrentPage.BackColor = value; }
+		}
+
 
 		public override void SwitchPage(int p) {
 			base.SwitchPage(p);
