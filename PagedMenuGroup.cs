@@ -9,17 +9,17 @@ namespace QuickMenu {
 
 		protected Dictionary<int, MenuGroup> Pages = new Dictionary<int, MenuGroup>();
 		protected Stack<int> History = new Stack<int>();
-		public int TopPageId;
+		public int TopPageId = 0;
 		public int CurrentPageId {
 			get; private set;
-		}
+		} = 0;
 		public bool RightClickBack = false;
 
 		private int? WillSwitchPageTo;
+		private int NextNewPageId = 0;
 
-		public PagedMenuGroup(Font f, UnpagedMenuGroup top, int topid):base(f) {
-			Pages.Add(topid, top);
-			CurrentPageId = TopPageId = topid;
+		public PagedMenuGroup(Font f, UnpagedMenuGroup top):base(f) {
+			AddPage(top);
 		}
 
 		protected PagedMenuGroup(Font f) : base(f) {
@@ -30,8 +30,10 @@ namespace QuickMenu {
 			get { return Pages[CurrentPageId]; }
 		}
 
-		public void AddPage(int id, UnpagedMenuGroup page) {
-			Pages.Add(id, page);
+		public int AddPage(UnpagedMenuGroup page) {
+			Pages.Add(NextNewPageId, page);
+			NextNewPageId++;
+			return NextNewPageId - 1;
 		}
 
 		protected internal override void FirstUpdate(Camera c, MenuGroup top) {
