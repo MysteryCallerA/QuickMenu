@@ -5,7 +5,7 @@ using Utils.input;
 using Utils.text;
 
 namespace QuickMenu {
-	public class PagedMenuGroup:MenuGroup {
+	public class PagedMenuGroup:MenuGroup { //TODO can mabye make this a MetaGroup
 
 		protected Dictionary<int, MenuGroup> Pages = new Dictionary<int, MenuGroup>();
 		protected Stack<int> History = new Stack<int>();
